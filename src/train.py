@@ -56,7 +56,7 @@ def train_models():
         print(name + ":")
 
         pipeline.fit(X_train, y_train)
-        
+
         y_predict = pipeline.predict(X_val)
 
         print(confusion_matrix(y_val, y_predict))
