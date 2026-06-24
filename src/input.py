@@ -4,19 +4,23 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
-Tfidf_vectorizer = TfidfVectorizer(
-    stop_words="english",
-    lowercase=True,
-    max_features=50000,
-    min_df=2,
-    max_df=0.95
-)
+def get_tfidf_vectorizer() -> TfidfVectorizer:
+    Tfidf_vectorizer = TfidfVectorizer(
+        stop_words="english",
+        lowercase=True,
+        max_features=50000,
+        min_df=2,
+        max_df=0.95
+    )
+    return Tfidf_vectorizer
 
-Count_vectorizer = CountVectorizer(
-    stop_words="english", 
-    binary=True, 
-    max_features=50000
-)
+def get_count_vectorizer() -> CountVectorizer:
+    Count_vectorizer = CountVectorizer(
+        stop_words="english", 
+        binary=True, 
+        max_features=50000
+    )
+    return Count_vectorizer
 
 
 def get_data(train_percent : float, validation_percent : float, seed : int) -> tuple:
