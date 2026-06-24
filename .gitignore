@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env/
+
+# Dataset
+data/
+*.csv
+
+# Mac
+.DS_Store
