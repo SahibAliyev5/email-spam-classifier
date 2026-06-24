@@ -2,11 +2,11 @@
 
 Email Spam Classifier is a beginner-friendly Natural Language Processing (NLP) project that classifies email messages as either **spam** or **not spam** using classical machine learning models.
 
-The project uses text vectorization techniques such as **TF-IDF** and **binary bag-of-words**, then compares several supervised learning algorithms for spam detection.
+The project does not use LLM APIs or deep learning. Instead, it uses traditional NLP techniques such as **TF-IDF**, **binary bag-of-words**, and supervised machine learning classifiers.
 
 ## Project Overview
 
-The goal of this project is to build a practical machine learning pipeline for email spam classification without using LLM APIs or deep learning models.
+The goal of this project is to build a practical spam detection pipeline using Python and scikit-learn.
 
 The pipeline follows this process:
 
@@ -17,9 +17,13 @@ Raw email text
 → Spam / not-spam prediction
 ```
 
+The trained models are saved as scikit-learn pipelines, so each saved model contains both the vectorizer and the classifier.
+
 ## Dataset
 
-This project uses the [Email Spam Classification Dataset](https://www.kaggle.com/datasets/purusinghvi/email-spam-classification-dataset/data) from Kaggle. The dataset contains 83,446 labeled email records classified as spam or not spam, and was created by combining the 2007 TREC Public Spam Corpus and the Enron-Spam Dataset.
+This project uses the [Email Spam Classification Dataset](https://www.kaggle.com/datasets/purusinghvi/email-spam-classification-dataset/data) from Kaggle.
+
+The dataset contains **83,446 labeled email records** classified as spam or not spam. It was created by combining the **2007 TREC Public Spam Corpus** and the **Enron-Spam Dataset**.
 
 After downloading the dataset, place the CSV file at:
 
@@ -27,9 +31,11 @@ After downloading the dataset, place the CSV file at:
 data/combined_data.csv
 ```
 
+The dataset is not included in this repository because of file size and licensing considerations.
+
 ## Models Used
 
-This project compares the following models:
+This project compares five classical machine learning models:
 
 | Model | Vectorizer | Description |
 |---|---|---|
@@ -53,24 +59,28 @@ The dataset was split using a stratified **80/20 train-test split**.
 
 The best-performing model was **Linear SVM**, achieving approximately **99.02% accuracy** on the test set.
 
-Logistic Regression also performed very strongly and has the advantage of supporting probability estimates through `predict_proba()`.
+Logistic Regression also performed strongly and has the additional advantage of supporting probability estimates through `predict_proba()`.
 
 ## Project Structure
 
 ```text
 email-spam-classifier/
-├── data/
-│   └── .gitkeep
 ├── models/
-│   └── .gitkeep
+│   ├── Bernoulli_NB.pkl
+│   ├── Complement_NB.pkl
+│   ├── Linear_SVM.pkl
+│   ├── Logistic_Regression.pkl
+│   └── Multinomial_NB.pkl
 ├── src/
 │   ├── input.py
 │   ├── train.py
 │   └── predict.py
+├── .gitignore
 ├── README.md
-├── requirements.txt
-└── .gitignore
+└── requirements.txt
 ```
+
+The `models/` directory contains pre-trained scikit-learn pipelines. Each pipeline includes both the vectorizer and the classifier.
 
 ## Installation
 
@@ -98,7 +108,7 @@ pip install -r requirements.txt
 
 ### 1. Add the dataset
 
-Place the dataset file here:
+Download the dataset from Kaggle and place it here:
 
 ```text
 data/combined_data.csv
@@ -127,52 +137,48 @@ Congratulations! You have won a free prize. Click here now.
 Example output:
 
 ```text
-Linear_SVM:
-Prediction: 0
-Decision score: -0.2628
-Positive score means: 1
-Negative score means: 0
-
 Logistic_Regression:
 Prediction: 1
 0: 17.90%
 1: 82.10%
 
-Multinomial_NB:
+Linear_SVM:
 Prediction: 1
-0: 15.23%
-1: 84.77%
-
-Bernoulli_NB:
-Prediction: 1
-0: 0.00%
-1: 100.00%
-
-Complement_NB:
-Prediction: 1
-0: 16.63%
-1: 83.37%
+Decision score: 0.8421
+Positive score means: 1
+Negative score means: 0
 ```
 
-For models such as Linear SVM, probability estimates are not directly available, so the script prints a decision score instead.
+In this dataset:
+
+```text
+0 = not spam
+1 = spam
+```
+
+Models such as Naive Bayes and Logistic Regression support probability estimates. Linear SVM does not directly provide probabilities, so the script prints a decision score instead.
 
 ## Key Concepts
 
 ### TF-IDF
 
-TF-IDF converts text into numerical features by giving higher scores to words that are important in a specific email but not too common across all emails.
+TF-IDF converts text into numerical features. It gives higher values to words that are important in a specific email but not too common across all emails.
+
+### Binary Bag-of-Words
+
+Binary bag-of-words records whether a word appears in an email or not. This representation is used with Bernoulli Naive Bayes.
 
 ### Naive Bayes
 
-Naive Bayes models estimate the probability of an email being spam based on the words it contains.
+Naive Bayes models estimate the probability of an email being spam or not spam based on the words it contains.
 
 ### Logistic Regression
 
-Logistic Regression learns weights for words and predicts the probability that an email belongs to the spam class.
+Logistic Regression learns weights for words and uses them to estimate the probability that an email belongs to a class.
 
 ### Linear SVM
 
-Linear SVM finds a separating boundary between spam and not-spam emails with the largest possible margin.
+Linear SVM finds a separating boundary between spam and not-spam emails and tries to maximize the margin between the classes.
 
 ## Tech Stack
 
@@ -180,3 +186,7 @@ Linear SVM finds a separating boundary between spam and not-spam emails with the
 - Pandas
 - Scikit-learn
 - Joblib
+- TF-IDF
+- Naive Bayes
+- Logistic Regression
+- Linear SVM
