@@ -19,22 +19,12 @@ Raw email text
 
 ## Dataset
 
-This project uses a labeled email spam dataset containing **83,446 email records**, formed by combining the **2007 TREC Public Spam Corpus** and the **Enron-Spam Dataset**.
+This project uses the [Email Spam Classification Dataset](https://www.kaggle.com/datasets/purusinghvi/email-spam-classification-dataset/data) from Kaggle. The dataset contains 83,446 labeled email records classified as spam or not spam, and was created by combining the 2007 TREC Public Spam Corpus and the Enron-Spam Dataset.
 
-The dataset should contain at least these columns:
-
-| Column | Description |
-|---|---|
-| `text` | Email/message content |
-| `label` | Target label, usually `0` for not-spam and `1` for spam |
-
-Because the dataset file may be large and may have licensing restrictions, it is not included in this repository.
-
-After downloading the dataset, place it here:
+After downloading the dataset, place the CSV file at:
 
 ```text
 data/combined_data.csv
-```
 
 ## Models Used
 
